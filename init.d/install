@@ -1,0 +1,7 @@
+cp init.d/bb.service /etc/systemd/system
+mkdir /var/lib/bb
+mkdir /var/log/bb
+systemctl enable bb
+systemctl daemon-reload
+service bb start
+systemctl status bb

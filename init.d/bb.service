@@ -1,0 +1,8 @@
+[Unit]
+Description=bb
+
+[Service]
+ExecStart=/usr/local/bin/bb -k -d /var/lib/bb --logdir /var/log/bb -z -p
+
+[Install]
+WantedBy=multi-user.target

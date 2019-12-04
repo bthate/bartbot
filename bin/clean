@@ -1,0 +1,1 @@
+rm -fR runbb testdata runbb.tar.gz history _build build envs dist bartbot.egg-info *~ docs/*~ bin/*~ bartbot/*~ mods/*~  mods/__pycache__ tests/*~ tests/__pycache__ docs/code/ docs/html docs/obj
