@@ -12,7 +12,6 @@ import threading
 from ob import Object, k, __version__
 from ob.csl import Console
 from ob.dpt import dispatch
-from ob.krn import Console
 from ob.pst import Persist
 from ob.shl import execute, hd, parse_cli, set_completer
 from ob.tms import elapsed
