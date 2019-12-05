@@ -59,7 +59,7 @@ def main():
     parse_cli("bb", __version__, opts, hd(".ob"), "bb [options]")
     if k.cfg.daemon:
         daemon()
-    k.cfg.modules += ",obot.cmds,obot.show,rssbot,bartbot.stats"
+    k.cfg.modules += ",obot.cmds,obot.show"
     k.init(k.cfg.modules)
     if not k.init("obot.irc"):
         return
