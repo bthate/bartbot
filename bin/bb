@@ -1,5 +1,7 @@
 #!/usr/bin/python3 -u
 
+import os, sys ; sys.path.insert(0, os.getcwd())
+
 import json
 import ob
 import ob.evt
@@ -62,10 +64,10 @@ def main():
     parse_cli("bb", __version__, opts, hd(".bb"), "bb [options]")
     if k.cfg.daemon:
         daemon()
-    k.cfg.packages += ",obot,bartbot"
-    k.walk("obot")
+    k.cmds.register("cmds", cmds)
+    k.walk("obot.cmds")
     k.walk("rssbot")
-    if not k.init(k.cfg.modules):
+    if k.cfg.modules and not k.init(k.cfg.modules):
         return
     if not k.cfg.args:
         k.walk("bartbot")
