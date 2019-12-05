@@ -1,7 +1,5 @@
 #!/usr/bin/python3 -u
 
-import os, sys ; sys.path.insert(0, os.getcwd())
-
 import json
 import ob
 import ob.evt
@@ -12,6 +10,7 @@ import time
 import threading
 
 from ob import Object, k, __version__
+from ob.csl import Console
 from ob.dpt import dispatch
 from ob.krn import Console
 from ob.pst import Persist
@@ -40,7 +39,7 @@ opts = [
     ('-o', '', "string", "", 'options', "options to use."),
     ('-s', '', 'store_true', False, 'dosave', 'save configuration files.'),
     ('-v', '', 'store_true', False, 'verbose', 'enable verbose mode.'),
-    ('-z', '', 'store_false', True, 'shell', ' enable shell (default).'),
+    ('-z', '', 'store_false', True, 'shell', 'enable shell (default).'),
 ]
 
 def daemon():
@@ -57,27 +56,19 @@ def daemon():
     os.dup2(so.fileno(), sys.stdout.fileno())
     os.dup2(se.fileno(), sys.stderr.fileno())
 
-def cmds(event):
-    event.reply("|".join(sorted(k.cmds)))
-
 def main():
-    parse_cli("bb", __version__, opts, hd(".bb"), "bb [options]")
+    parse_cli("bb", __version__, opts, hd(".ob"), "bb [options]")
     if k.cfg.daemon:
         daemon()
-    k.cmds.register("cmds", cmds)
-    k.walk("obot.cmds")
-    k.walk("rssbot")
-    if k.cfg.modules and not k.init(k.cfg.modules):
+    k.cfg.modules += ",obot.cmds,obot.show,rssbot,bartbot.stats"
+    k.init(k.cfg.modules)
+    if not k.init("obot.irc"):
         return
-    if not k.cfg.args:
-        k.walk("bartbot")
-        k.init("bartbot.stats")
-        console = Console()
-        console.start()
-        k.start()
-        k.wait()
-    else:
-        k.cmd(" ".join(k.cfg.args))
+    console = Console()
+    console.start()
+    k.add(console)
+    k.start()
+    k.wait()
 
 execute(main)
 os._exit(0)
