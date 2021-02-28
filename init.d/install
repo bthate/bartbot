@@ -1,7 +1,0 @@
-[ ! -d "/var/log/bartbot" ] && mkdir /var/log/bartbot
-[ ! -d "/var/lib/bartbot" ] && mkdir /var/lib/bartbot
-cp init.d/bartbot.service /etc/systemd/system
-systemctl enable bartbot
-systemctl daemon-reload
-service bartbot start
-systemctl status bartbot
